@@ -3,11 +3,15 @@ language: java
 script: mvn verify
 jdk:
   - openjdk7
-after_success:
-  - if [ $SONATYPE_USERNAME ] && [ -z $TRAVIS_TAG ] && [ $TRAVIS_PULL_REQUEST == false ]; then
-      mvn clean deploy --settings .travis/settings.xml;
-    fi;
-branches:
-  only:
-  - master
-  - 2.0
+  - openjdk8
+# skip snapshot deployment
+#after_success:
+#  - if [ $SONATYPE_USERNAME ] && [ -z $TRAVIS_TAG ] && [ $TRAVIS_PULL_REQUEST == false ]; then
+#      mvn clean deploy --settings .travis/settings.xml;
+#    fi;
+
+# comment out the following to run the CI for every branch
+#branches:
+#  only:
+#  - master
+#  - 2.0
