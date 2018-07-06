@@ -350,10 +350,20 @@ public class OpenAPIV3ParserTest {
         OpenAPI openAPI = new OpenAPIV3Parser().read("src/test/resources/relative/additionalProperties.yaml");
 
         Assert.assertNotNull(openAPI);
-        Assert.assertTrue(openAPI.getComponents().getSchemas().size() == 3);
+        Assert.assertEquals(4, openAPI.getComponents().getSchemas().size());
         Assert.assertNotNull(openAPI.getComponents().getSchemas().get("link-object"));
         Assert.assertNotNull(openAPI.getComponents().getSchemas().get("rel-data"));
         Assert.assertNotNull(openAPI.getComponents().getSchemas().get("result"));
+        Assert.assertNotNull(openAPI.getComponents().getSchemas().get("SomeId"));
+
+        PathItem pathItem = openAPI.getPaths().get("/issue749");
+        Assert.assertNotNull(pathItem);
+        List<Parameter> parameters = pathItem.getGet().getParameters();
+        Assert.assertNotNull(parameters);
+        Assert.assertEquals(parameters.size(), 1);
+        Assert.assertEquals(parameters.get(0).getName(), "i");
+        Assert.assertNotNull(parameters.get(0).getSchema());
+        Assert.assertEquals(parameters.get(0).getSchema().get$ref(), "#/components/schemas/SomeId");
     }
 
     @Test
