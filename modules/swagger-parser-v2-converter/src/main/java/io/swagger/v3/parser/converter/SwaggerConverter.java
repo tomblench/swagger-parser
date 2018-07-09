@@ -141,7 +141,9 @@ public class SwaggerConverter implements SwaggerParserExtension {
             openAPI.setExternalDocs(convert(swagger.getExternalDocs()));
         }
 
-        openAPI.setInfo(convert(swagger.getInfo()));
+        if (swagger.getInfo() != null) {
+            openAPI.setInfo(convert(swagger.getInfo()));
+        }
 
         openAPI.setServers(convert(swagger.getSchemes(), swagger.getHost(), swagger.getBasePath()));
 
@@ -317,7 +319,10 @@ public class SwaggerConverter implements SwaggerParserExtension {
         }
 
         Scopes scopes = new Scopes();
-        oAuth2Definition.getScopes().forEach((k, v) -> scopes.addString(k, v));
+        Map<String, String> oAuth2Scopes = oAuth2Definition.getScopes();
+        if (oAuth2Scopes != null) {
+            oAuth2Scopes.forEach((k, v) -> scopes.addString(k, v));
+        }
         oAuthFlow.setScopes(scopes);
 
         securityScheme.setFlows(oAuthFlows);
