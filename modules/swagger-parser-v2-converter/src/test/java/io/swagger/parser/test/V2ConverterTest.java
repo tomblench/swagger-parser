@@ -78,6 +78,7 @@ public class V2ConverterTest {
     private static final String ISSUE_676_JSON = "issue-676.json";
     private static final String ISSUE_708_YAML = "issue-708.yaml";
     private static final String ISSUE_755_YAML = "issue-755.yaml";
+    private static final String ISSUE_756_JSON = "issue-756.json";
     private static final String ISSUE_758_JSON = "issue-758.json";
     private static final String ISSUE_762_JSON = "issue-762.json";
 
@@ -617,6 +618,12 @@ public class V2ConverterTest {
         assertEquals(schema.getMinLength(), Integer.valueOf(1));
         assertEquals(schema.getMaxLength(), Integer.valueOf(3));
         assertEquals(schema.getPattern(), "^[0-9]+$");
+    }
+
+    @Test(description = "OpenAPI v2 converter - no model in body parameter")
+    public void testIssue756() throws Exception {
+        OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_756_JSON);
+        assertNotNull(oas);
     }
 
     @Test(description = "OpenAPI v2 converter - NPE when 'enum' field is available and 'type' field is missing in query parameter")
