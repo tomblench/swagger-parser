@@ -78,6 +78,7 @@ public class V2ConverterTest {
     private static final String ISSUE_676_JSON = "issue-676.json";
     private static final String ISSUE_708_YAML = "issue-708.yaml";
     private static final String ISSUE_755_YAML = "issue-755.yaml";
+    private static final String ISSUE_758_JSON = "issue-758.json";
 
     private static final String API_BATCH_PATH = "/api/batch/";
     private static final String PETS_PATH = "/pets";
@@ -615,6 +616,12 @@ public class V2ConverterTest {
         assertEquals(schema.getMinLength(), Integer.valueOf(1));
         assertEquals(schema.getMaxLength(), Integer.valueOf(3));
         assertEquals(schema.getPattern(), "^[0-9]+$");
+    }
+
+    @Test(description = "OpenAPI v2 converter - NPE when 'enum' field is available and 'type' field is missing in query parameter")
+    public void testIssue758() throws Exception {
+        final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_758_JSON);
+        assertNotNull(oas);
     }
 
     @Test(description = "OpenAPI v2 converter - Missing Parameter.style property")
