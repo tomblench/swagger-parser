@@ -16,3 +16,17 @@ paths:
             application/json:
               schema:
                 "$ref": "./globals.yaml#/components/schemas/result"
+  "/issue749":
+    get:
+      parameters:
+        - name: i
+          in: query
+          description: param i
+          required: true
+          style: form
+          explode: true
+          schema:
+            $ref: ./someid-schema.yaml#/SomeId
+      responses:
+        '204':
+          description: No content result
