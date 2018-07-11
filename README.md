@@ -1,3 +1,17 @@
+# IMPORTANT
+
+This is a fork of [swagger-api/swagger-parser](https://github.com/swagger-api/swagger-parser) to work on use cases for [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator).
+
+Work is made in the `2.0-OpenAPITools` branch.
+There is no release of this branch (`SNAPSHOT` version only).
+Maven `groupId` was changed to: `<groupId>org.openapitools.swagger.parser</groupId>`
+
+If you want to change something in this project, be sure to also file a PR in [swagger-api/swagger-parser](https://github.com/swagger-api/swagger-parser/pulls).
+
+:bangbang: Both "OpenAPI Tools" (https://OpenAPITools.org - the parent organization of this project) and "OpenAPI Generator" are not affiliated with OpenAPI Initiative (OAI)
+
+---
+
 # Swagger Parser
 
 ## Overview 
@@ -95,7 +109,7 @@ You can include this library from Sonatype OSS for SNAPSHOTS, or Maven central f
 <dependency>
   <groupId>io.swagger.parser.v3</groupId>
   <artifactId>swagger-parser</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2-SNAPSHOT</version>
 </dependency>
 
 ```
@@ -106,7 +120,7 @@ or
 <dependency>
   <groupId>io.swagger.parser.v3</groupId>
   <artifactId>swagger-parser</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.2-SNAPSHOT</version>
 </dependency>
 
 ```

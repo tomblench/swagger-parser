@@ -141,7 +141,9 @@ public class SwaggerConverter implements SwaggerParserExtension {
             openAPI.setExternalDocs(convert(swagger.getExternalDocs()));
         }
 
-        openAPI.setInfo(convert(swagger.getInfo()));
+        if (swagger.getInfo() != null) {
+            openAPI.setInfo(convert(swagger.getInfo()));
+        }
 
         openAPI.setServers(convert(swagger.getSchemes(), swagger.getHost(), swagger.getBasePath()));
 
@@ -815,6 +817,9 @@ public class SwaggerConverter implements SwaggerParserExtension {
     }
 
     private Schema convert(Property schema) {
+        if (schema == null) {
+            return null;
+        }
         Schema result;
 
         if (schema instanceof RefProperty) {
@@ -1010,7 +1015,7 @@ public class SwaggerConverter implements SwaggerParserExtension {
 
             if (sp.getEnum() != null) {
                 for (String e : sp.getEnum()) {
-                    switch (sp.getType()) {
+                    switch (sp.getType() == null ? SchemaTypeUtil.OBJECT_TYPE : sp.getType()) {
                         case SchemaTypeUtil.INTEGER_TYPE:
                             schema.addEnumItemObject(Integer.parseInt(e));
                             break;
@@ -1051,6 +1056,9 @@ public class SwaggerConverter implements SwaggerParserExtension {
     }
 
     public Schema convert(io.swagger.models.Model v2Model) {
+        if (v2Model == null) {
+            return null;
+        }
         Schema result;
 
         if (v2Model instanceof ArrayModel) {

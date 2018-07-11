@@ -7,8 +7,8 @@
   <servers>
     <server>
       <id>sonatype-nexus-snapshots</id>
-      <username>${env.SONATYPE_USERNAME}</username>
-      <password>${env.SONATYPE_PASSWORD}</password>
+      <username>${env.OPENAPITOOLS_SONATYPE_USERNAME}</username>
+      <password>${env.OPENAPITOOLS_SONATYPE_PASSWORD}</password>
     </server>
   </servers>
   <mirrors/>

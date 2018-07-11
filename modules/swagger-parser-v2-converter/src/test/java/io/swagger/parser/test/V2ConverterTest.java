@@ -78,6 +78,10 @@ public class V2ConverterTest {
     private static final String ISSUE_676_JSON = "issue-676.json";
     private static final String ISSUE_740_YAML = "issue-740.yaml";
     private static final String ISSUE_708_YAML = "issue-708.yaml";
+    private static final String ISSUE_755_YAML = "issue-755.yaml";
+    private static final String ISSUE_756_JSON = "issue-756.json";
+    private static final String ISSUE_758_JSON = "issue-758.json";
+    private static final String ISSUE_762_JSON = "issue-762.json";
 
     private static final String API_BATCH_PATH = "/api/batch/";
     private static final String PETS_PATH = "/pets";
@@ -627,6 +631,24 @@ public class V2ConverterTest {
         assertEquals(composedSchema.getAllOf().size(), 2);
     }
 
+    @Test(description = "OpenAPI v2 converter - no model in body parameter")
+    public void testIssue756() throws Exception {
+        OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_756_JSON);
+        assertNotNull(oas);
+    }
+
+    @Test(description = "OpenAPI v2 converter - NPE when 'enum' field is available and 'type' field is missing in query parameter")
+    public void testIssue758() throws Exception {
+        final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_758_JSON);
+        assertNotNull(oas);
+    }
+
+    @Test(description = "OpenAPI v2 Converter: NPE when type is array and 'items' field is missing in array property")
+    public void testIssue762() throws Exception {
+        final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_762_JSON);
+        assertNotNull(oas);
+    }
+
     @Test(description = "OpenAPI v2 converter - Missing Parameter.style property")
     public void testParameterConversion() throws Exception {
         OpenAPI oas = getConvertedOpenAPIFromJsonFile(PARAMETER_CONVERSION_JSON);
@@ -659,6 +681,12 @@ public class V2ConverterTest {
         SwaggerParseResult result = converter.readContents(swaggerAsString, null, parseOptions);
 
         assertNotNull(result.getMessages());
+    }
+
+    @Test(description = "OpenAPI v2 converter - Conversion of a spec without a info section")
+    public void testIssue755() throws Exception {
+        final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_755_YAML);
+        assertNotNull(oas);
     }
 
     private OpenAPI getConvertedOpenAPIFromJsonFile(String file) throws IOException, URISyntaxException {
