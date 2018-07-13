@@ -623,7 +623,7 @@ public class V2ConverterTest {
     @Test(description = "OpenAPI v2 converter - no model in body parameter")
     public void testIssue756() throws Exception {
         OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_756_JSON);
-        assertNotNull(oas);
+          assertNotNull(oas);
     }
 
     @Test(description = "OpenAPI v2 converter - NPE when 'enum' field is available and 'type' field is missing in query parameter")
@@ -631,12 +631,12 @@ public class V2ConverterTest {
         final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_758_JSON);
         assertNotNull(oas);
     }
-
+  
     @Test(description = "OpenAPI v2 Converter: NPE when type is array and 'items' field is missing in array property")
     public void testIssue762() throws Exception {
         final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_762_JSON);
         assertNotNull(oas);
-    }
+    } 
 
     @Test(description = "OpenAPI v2 converter - Missing Parameter.style property")
     public void testParameterConversion() throws Exception {
