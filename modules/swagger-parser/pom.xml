@@ -13,12 +13,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.swagger.parser.v3</groupId>
+            <groupId>org.openapitools.swagger.parser</groupId>
             <artifactId>swagger-parser-v2-converter</artifactId>
             <version>${parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.swagger.parser.v3</groupId>
+            <groupId>org.openapitools.swagger.parser</groupId>
             <artifactId>swagger-parser-v3</artifactId>
             <version>${parent.version}</version>
         </dependency>

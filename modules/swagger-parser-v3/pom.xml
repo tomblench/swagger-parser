@@ -24,7 +24,7 @@
             <version>${swagger-core-module-version}</version>
         </dependency>
         <dependency>
-            <groupId>io.swagger.parser.v3</groupId>
+            <groupId>org.openapitools.swagger.parser</groupId>
             <artifactId>swagger-parser-core</artifactId>
             <version>${parent.version}</version>
         </dependency>
