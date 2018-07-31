@@ -3,8 +3,11 @@
 This is a fork of [swagger-api/swagger-parser](https://github.com/swagger-api/swagger-parser) to work on use cases for [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator).
 
 Work is made in the `2.0-OpenAPITools` branch.
-There is no release of this branch (`SNAPSHOT` version only).
 Maven `groupId` was changed to: `<groupId>org.openapitools.swagger.parser</groupId>`
+
+There are `SNAPSHOT` and [released](https://github.com/OpenAPITools/swagger-parser/releases) version from this branch.
+Released versions use `OpenAPITools.org-*` suffix in their name to distinguish them from official version.
+Released versions should be used until the next offical version is published.
 
 If you want to change something in this project, be sure to also file a PR in [swagger-api/swagger-parser](https://github.com/swagger-api/swagger-parser/pulls).
 

@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.openapitools.swagger.parser</groupId>
     <artifactId>swagger-parser-project</artifactId>
-    <version>2.0.2-SNAPSHOT</version>
+    <version>2.0.2-OpenAPITools.org-1</version>
     <packaging>pom</packaging>
     <name>swagger-parser-project</name>
     <developers>
@@ -249,6 +249,40 @@
             </snapshots>
         </repository>
     </repositories>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <properties>
         <swagger-parser-v2-version>1.0.36</swagger-parser-v2-version>
         <commons-io-version>2.4</commons-io-version>
@@ -262,5 +296,4 @@
         <commons-lang-version>3.2.1</commons-lang-version>
         <jackson-version>2.9.5</jackson-version>
     </properties>
-    
 </project>

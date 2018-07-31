@@ -10,6 +10,11 @@
       <username>${env.OPENAPITOOLS_SONATYPE_USERNAME}</username>
       <password>${env.OPENAPITOOLS_SONATYPE_PASSWORD}</password>
     </server>
+    <server>
+        <id>ossrh</id>
+        <username>${env.OPENAPITOOLS_SONATYPE_USERNAME}</username>
+        <password>${env.OPENAPITOOLS_SONATYPE_PASSWORD}</password>
+    </server>
   </servers>
   <mirrors/>
   <proxies/>
