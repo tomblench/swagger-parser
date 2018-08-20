@@ -1,5 +1,11 @@
 package io.swagger.parser.test;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
 import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
@@ -16,8 +22,10 @@ import io.swagger.v3.oas.models.security.OAuthFlow;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.parser.converter.SwaggerConverter;
+import io.swagger.v3.parser.core.models.AuthorizationValue;
 import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -26,14 +34,9 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
 
 public class V2ConverterTest {
     private static final String PET_STORE_JSON = "petstore.json";
@@ -77,12 +80,14 @@ public class V2ConverterTest {
     private static final String ISSUE_673_YAML = "issue-673.yaml";
     private static final String ISSUE_676_JSON = "issue-676.json";
     private static final String ISSUE_708_YAML = "issue-708.yaml";
+    private static final String ISSUE_745_YAML = "issue-745.yaml";
     private static final String ISSUE_740_YAML = "issue-740.yaml";
     private static final String ISSUE_755_YAML = "issue-755.yaml";
     private static final String ISSUE_756_JSON = "issue-756.json";
     private static final String ISSUE_758_JSON = "issue-758.json";
     private static final String ISSUE_762_JSON = "issue-762.json";
     private static final String ISSUE_765_YAML = "issue-765.yaml";
+    private static final String ISSUE_768_JSON = "issue-786.json";
 
     private static final String API_BATCH_PATH = "/api/batch/";
     private static final String PETS_PATH = "/pets";
@@ -434,10 +439,10 @@ public class V2ConverterTest {
         assertNotNull(oas);
     }
 
-    @Test(description = "No Servers - without host, basePath, scheme")
+    @Test(description = "Expect a default server object when a swagger without host, basePath and scheme is converted to openAPI")
     public void testIssue31() throws Exception {
         OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_31_JSON);
-        assertNull(oas.getServers());
+        assertNotNull(oas.getServers());
     }
 
     @Test(description = "Convert schema, property and array examples")
@@ -622,6 +627,21 @@ public class V2ConverterTest {
         assertEquals(schema.getPattern(), "^[0-9]+$");
     }
 
+    @Test(description = "Issue in converting server url in RFC 3986 format from OpenAPI Spec 2 to Open API Spec 3")
+    public void testIssue745() throws Exception {
+        OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_745_YAML);
+        assertTrue(oas.getServers().get(0).getUrl().startsWith("//"));
+    }
+  
+    @Test(description = "OpenAPIParser.readLocation fails when fetching valid Swagger 2.0 resource with AuthorizationValues provided")
+    public void testIssue785() {
+        AuthorizationValue apiKey = new AuthorizationValue("api_key", "special-key", "header");
+        List<AuthorizationValue> authorizationValues = Arrays.asList(apiKey);
+        SwaggerConverter converter = new SwaggerConverter();
+        List<io.swagger.models.auth.AuthorizationValue> convertedAuthList = converter.convert(authorizationValues);
+        assertEquals(convertedAuthList.size(), authorizationValues.size());
+    }
+
     @Test(description = "OpenAPI v2 converter - Migrate a schema with AllOf")
     public void testIssue740() throws Exception {
         final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_740_YAML);
@@ -691,6 +711,12 @@ public class V2ConverterTest {
         SwaggerParseResult result = converter.readContents(swaggerAsString, null, parseOptions);
 
         assertNotNull(result.getMessages());
+    }
+
+    @Test(description = "OpenAPI v2 converter - Migrate minLength, maxLength and pattern of String property")
+    public void testIssue786() throws Exception {
+        final OpenAPI oas = getConvertedOpenAPIFromJsonFile(ISSUE_768_JSON);
+        assertNotNull(oas);
     }
 
     @Test(description = "OpenAPI v2 converter - Conversion of a spec without a info section")
