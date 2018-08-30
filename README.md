@@ -1,5 +1,7 @@
 # IMPORTANT
 
+[![Build Status](https://travis-ci.org/OpenAPITools/swagger-parser.svg?branch=2.0-OpenAPITools)](https://travis-ci.org/OpenAPITools/swagger-parser)
+
 This is a fork of [swagger-api/swagger-parser](https://github.com/swagger-api/swagger-parser) to work on use cases for [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator).
 
 Work is made in the `2.0-OpenAPITools` branch.
